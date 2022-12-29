@@ -8,11 +8,11 @@ enum AuthUserState {
 abstract class AuthRepository {
   AuthUserState getUserState();
 
-  User? getUser();
+  Future<User?> getUser();
 
-  User? signIn();
+  Future<User?> signIn({required LoginRequestData loginRequestData});
 
-  User? signUp();
+  Future<User?> signUp({required LoginRequestData loginRequestData});
 
-  bool signOut();
+  Future<bool> signOut();
 }
