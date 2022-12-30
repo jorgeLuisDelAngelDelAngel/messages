@@ -8,11 +8,11 @@ class GroupService {
     _groupRepository = groupRepository;
   }
 
-  List<Group> getGroups({required User user}) {
+  Future<List<Group>?> getGroups({required User user}) async {
     return _groupRepository.getGroups(user: user);
   }
 
-  Group getGroup({required String groupId}) {
+  Future<Group?> getGroup({required String groupId}) {
     return _groupRepository.getGroup(groupId: groupId);
   }
 

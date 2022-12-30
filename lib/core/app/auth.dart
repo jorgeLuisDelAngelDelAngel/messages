@@ -15,34 +15,28 @@ class AuthService {
 
   AuthUserState getUserState() => _authRepository.getUserState();
 
-  Future<User?> getUser() async {
-    final User? user = await _authRepository.getUser();
-    _saveInTemp(user);
-    return user;
-  }
-
   Future<void> signIn({required LoginRequestData loginRequestData}) async {
-    final User? user = await _authRepository.signIn(
+    final AuthUser? user = await _authRepository.signIn(
       loginRequestData: loginRequestData,
     );
     _saveInTemp(user);
   }
 
   Future<void> signUp({required LoginRequestData loginRequestData}) async {
-    final User? user = await _authRepository.signUp(
+    final AuthUser? user = await _authRepository.signUp(
       loginRequestData: loginRequestData,
     );
     _saveInTemp(user);
   }
 
-  void signOut({required User user}) {
+  void signOut({required AuthUser user}) {
     _authRepository.signOut();
     _removeFromTemp(id: user.id);
   }
 
-  Future<void> _saveInTemp(User? user) async {
+  Future<void> _saveInTemp(AuthUser? user) async {
     if (user != null && await _tempRepository.exist(id: user.id)) {
-      _tempRepository.saveData<User>(id: user.id, data: user);
+      _tempRepository.saveData<AuthUser>(id: user.id, data: user);
     }
   }
 

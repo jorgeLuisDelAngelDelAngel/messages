@@ -12,7 +12,7 @@ class ContactService {
     return _contactRepository.getContacts(user: user);
   }
 
-  User getContact({required String contactId}) {
+  Future<User?> getContact({required String contactId}) async {
     return _contactRepository.getContact(contactId: contactId);
   }
 

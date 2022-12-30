@@ -1,21 +1,24 @@
 import 'package:messages/core/models/domain.dart';
 
 abstract class ChatRepository {
-  Chat getChat({required String id});
+  Future<Chat?> getChat({required String id});
 
-  List<Chat> getsChats({required User user});
+  Future<List<Chat>?> getsChats({required User user});
 
-  void newChat({required Chat chat});
+  Future<Chat> newChat({required Chat chat});
 
-  void deleteChat({required String chatId});
+  Future<bool> deleteChat({required String chatId});
 
-  List<Message> getMessages({required String chatId});
+  Future<List<Message>?> getMessages({required String chatId});
 
-  Message getMessage({required String messageId});
+  Future<Message?> getMessage({required String messageId});
 
-  void sendMessage({required Message message});
+  Future<bool> sendMessage({required Message message});
 
-  void editMessage({required String messageId, required Message newMessage});
+  Future<bool> editMessage({
+    required String messageId,
+    required Message newMessage,
+  });
 
-  void deleteMessage({required String messageId});
+  Future<bool> deleteMessage({required String messageId});
 }

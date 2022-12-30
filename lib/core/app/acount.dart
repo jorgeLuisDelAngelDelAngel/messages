@@ -8,11 +8,11 @@ class AcountService {
     _acountRepository = acountRepository;
   }
 
-  User getUser() {
+  Future<User?> getUser() async {
     return _acountRepository.getUser();
   }
 
-  void newAcount({required User newAcount}) {
+  void newAcount({required AuthUser newAcount}) {
     _acountRepository.newAcount(newAcount: newAcount);
   }
 
@@ -20,7 +20,7 @@ class AcountService {
     _acountRepository.editAcount(newUser: newUser);
   }
 
-  void deleteAcount({required String acountId}) {
-    _acountRepository.deleteAcount(acountId: acountId);
+  void deleteAcount({required AuthUser authUser, required User user}) {
+    _acountRepository.deleteAcount(authUser: authUser, user: user);
   }
 }

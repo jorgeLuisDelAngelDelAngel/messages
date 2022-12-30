@@ -8,11 +8,11 @@ class ChatService {
     _chatRepository = chatRepository;
   }
 
-  List<Chat> getChats({required User user}) {
+  Future<List<Chat>?> getChats({required User user}) async {
     return _chatRepository.getsChats(user: user);
   }
 
-  Chat getChat({required String id}) {
+  Future<Chat?> getChat({required String id}) async {
     return _chatRepository.getChat(id: id);
   }
 
@@ -24,11 +24,11 @@ class ChatService {
     _chatRepository.deleteChat(chatId: chatId);
   }
 
-  List<Message> getMessages({required String chatId}) {
+  Future<List<Message>?> getMessages({required String chatId}) async {
     return _chatRepository.getMessages(chatId: chatId);
   }
 
-  Message getMessage({required String messageId}) {
+  Future<Message?> getMessage({required String messageId}) async {
     return _chatRepository.getMessage(messageId: messageId);
   }
 

@@ -5,5 +5,5 @@ abstract class TempRepository {
 
   Future<T> getData<T>({required String id});
 
-  Future<void> remove({required String id});
+  Future<bool> remove({required String id});
 }
