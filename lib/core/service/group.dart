@@ -5,7 +5,7 @@ abstract class GroupRepository {
 
   Future<Group?> getGroup({required String groupId});
 
-  Future<bool> newGroup({required Group group});
+  Future<Group?> newGroup({required Group group});
 
   Future<bool> updateGroup({required groupId, required Group newGroup});
 

@@ -3,7 +3,7 @@ import 'package:messages/core/models/domain.dart';
 abstract class AcountRepository {
   Future<User?> getUser();
 
-  Future<bool> newAcount({required AuthUser newAcount});
+  Future<User?> newAcount({required AuthUser newAcount});
 
   Future<bool> editAcount({required User newUser});
 

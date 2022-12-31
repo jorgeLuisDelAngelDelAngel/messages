@@ -5,7 +5,7 @@ abstract class ContactRepository {
 
   Future<User?> getContact({required String contactId});
 
-  Future<bool> newContact({required User contact});
+  Future<User?> newContact({required User contact});
 
   Future<bool> editContact({
     required String contactId,
