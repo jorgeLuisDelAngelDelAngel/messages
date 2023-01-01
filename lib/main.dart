@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:messages/core/core.dart';
+import 'package:messages/infrastructure/infrastructure.dart';
+import 'package:messages/ui/init/init.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: Container(color: Theme.of(context).backgroundColor),
-    );
-  }
+  Core.inicialize(
+    tempRepository: Temp(),
+    acountRepository: Acount(),
+    authRepository: Auth(),
+    chatRepository: ChatI(),
+    contactRepository: Contacts(),
+    groupRepository: GroupI(),
+    historyRepository: HistoryI(),
+  );
+  runApp(InitPage());
 }
