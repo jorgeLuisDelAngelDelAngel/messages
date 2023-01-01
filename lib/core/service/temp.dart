@@ -13,4 +13,6 @@ abstract class TempRepository {
     required String id,
     required dynamic Function<T>(T? data) fun,
   });
+
+  dynamic all();
 }

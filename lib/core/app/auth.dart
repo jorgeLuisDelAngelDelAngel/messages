@@ -4,40 +4,52 @@ import 'package:messages/core/service/services.dart';
 class AuthService {
   late AuthRepository _authRepository;
   late TempRepository _tempRepository;
+  late AcountRepository _acountRepository;
 
   AuthService.init({
     required AuthRepository authRepository,
     required TempRepository tempRepository,
+    required AcountRepository acountRepository,
   }) {
     _authRepository = authRepository;
     _tempRepository = tempRepository;
+    _acountRepository = acountRepository;
   }
+
+  Future<AuthUser?> getUser() => _authRepository.getUser();
 
   AuthUserState getUserState() => _authRepository.getUserState();
 
-  Future<void> signIn({required LoginRequestData loginRequestData}) async {
-    final AuthUser? user = await _authRepository.signIn(
-      loginRequestData: loginRequestData,
-    );
-    _saveInTemp(user);
+  Future<User?> signIn({required LoginRequestData request}) async {
+    AuthUser? authUser;
+    User? user;
+    authUser = await _authRepository.signIn(loginRequestData: request);
+    if (authUser == null) return null;
+    user = await _acountRepository.getUser(request: request);
+    if (user == null) return null;
+    _tempRepository.saveData(id: 'authUser', data: authUser);
+    _tempRepository.saveData(id: 'user', data: user);
+    return user;
   }
 
-  Future<void> signUp({required LoginRequestData loginRequestData}) async {
-    final AuthUser? user = await _authRepository.signUp(
-      loginRequestData: loginRequestData,
+  Future<User?> signUp({required LoginRequestData request}) async {
+    AuthUser? authUser;
+    User? user;
+    authUser = await _authRepository.signUp(loginRequestData: request);
+    if (authUser == null) return null;
+    user = await _acountRepository.newAcount(
+      authUser: authUser,
+      request: request,
     );
-    _saveInTemp(user);
+    if (user == null) return null;
+    _tempRepository.saveData(id: 'authUser', data: authUser);
+    _tempRepository.saveData(id: 'user', data: user);
+    return user;
   }
 
   void signOut({required AuthUser user}) {
     _authRepository.signOut();
     _removeFromTemp(id: user.id);
-  }
-
-  Future<void> _saveInTemp(AuthUser? user) async {
-    if (user != null && await _tempRepository.exist(id: user.id)) {
-      _tempRepository.saveData<AuthUser>(id: user.id, data: user);
-    }
   }
 
   Future<void> _removeFromTemp({required String id}) async {

@@ -13,14 +13,23 @@ class AcountService {
     _tempRepository = tempRepository;
   }
 
-  Future<User?> getUser({required String id}) async {
-    if (await _tempRepository.exist(id: id)) _tempRepository.getData(id: id);
-    return _acountRepository.getUser();
+  Future<User?> getUser() async {
+    return _tempRepository.getData(id: 'user');
   }
 
-  Future<void> newAcount({required AuthUser newAcount}) async {
-    User? user = await _acountRepository.newAcount(newAcount: newAcount);
-    if (user != null) _tempRepository.saveData<User>(id: user.id, data: user);
+  dynamic all() {
+    return _tempRepository.all();
+  }
+
+  Future<void> newAcount({
+    required AuthUser newAcount,
+    required LoginRequestData request,
+  }) async {
+    User? user = await _acountRepository.newAcount(
+      authUser: newAcount,
+      request: request,
+    );
+    if (user != null) _tempRepository.saveData<User>(id: 'user', data: user);
   }
 
   Future<void> editAcount({required User user}) async {

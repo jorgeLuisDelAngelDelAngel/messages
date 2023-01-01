@@ -1,23 +1,23 @@
+export 'package:messages/core/app/app.dart';
+export 'package:messages/core/models/domain.dart';
+export 'package:messages/core/service/services.dart';
+
 import 'package:messages/core/app/app.dart';
 import 'package:messages/core/service/services.dart';
 
 class Core {
   Core._();
-  static Core? _instance;
+  static final Core _instance = Core._();
+  static Core get instance => _instance;
 
-  static late AcountService acountService;
-  static late AuthService authService;
-  static late ChatService chatService;
-  static late ContactService contactService;
-  static late GroupService groupService;
-  static late HistoryService historyService;
+  late AcountService acountService;
+  late AuthService authService;
+  late ChatService chatService;
+  late ContactService contactService;
+  late GroupService groupService;
+  late HistoryService historyService;
 
-  static Core instance() {
-    if (_instance == null) throw Exception();
-    return _instance!;
-  }
-
-  static init({
+  static void inicialize({
     required TempRepository tempRepository,
     required AcountRepository acountRepository,
     required AuthRepository authRepository,
@@ -26,8 +26,26 @@ class Core {
     required GroupRepository groupRepository,
     required HistoryRepository historyRepository,
   }) {
-    _instance = Core._();
+    _instance._init(
+      tempRepository: tempRepository,
+      acountRepository: acountRepository,
+      authRepository: authRepository,
+      chatRepository: chatRepository,
+      contactRepository: contactRepository,
+      groupRepository: groupRepository,
+      historyRepository: historyRepository,
+    );
+  }
 
+  void _init({
+    required TempRepository tempRepository,
+    required AcountRepository acountRepository,
+    required AuthRepository authRepository,
+    required ChatRepository chatRepository,
+    required ContactRepository contactRepository,
+    required GroupRepository groupRepository,
+    required HistoryRepository historyRepository,
+  }) {
     acountService = AcountService.init(
       acountRepository: acountRepository,
       tempRepository: tempRepository,
@@ -36,6 +54,7 @@ class Core {
     authService = AuthService.init(
       authRepository: authRepository,
       tempRepository: tempRepository,
+      acountRepository: acountRepository,
     );
 
     chatService = ChatService.init(
