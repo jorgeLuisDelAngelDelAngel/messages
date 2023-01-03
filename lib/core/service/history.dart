@@ -1,11 +1,11 @@
 import 'package:messages/core/models/domain.dart';
 
 abstract class HistoryRepository {
-  List<History> getHistories({required User user});
+  Future<List<History>?> getHistories({required User user});
 
-  History getHistory({required String historyId});
+  Future<History?> getHistory({required String historyId});
 
-  void newHistory({required History history});
+  Future<bool> newHistory({required History history});
 
-  void deleteHistory({required String historyId});
+  Future<bool> deleteHistory({required String historyId});
 }

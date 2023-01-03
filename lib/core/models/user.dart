@@ -1,8 +1,8 @@
 class User {
   User({
     required this.id,
-    required this.name,
     required this.active,
+    this.name,
     this.image,
     this.phone,
     this.email,
@@ -37,7 +37,7 @@ class User {
   }
 
   String id;
-  String name;
+  String? name;
   String? image;
   String? phone;
   String? email;

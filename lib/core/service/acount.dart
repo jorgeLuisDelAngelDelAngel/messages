@@ -1,11 +1,14 @@
 import 'package:messages/core/models/domain.dart';
 
 abstract class AcountRepository {
-  User getUser();
+  Future<User?> getUser({required LoginRequestData request});
 
-  void newAcount({required User newAcount});
+  Future<User?> newAcount({
+    required AuthUser authUser,
+    required LoginRequestData request,
+  });
 
-  void editAcount({required User newUser});
+  Future<bool> editAcount({required User newUser});
 
-  void deleteAcount({required String acountId});
+  Future<bool> deleteAcount({required AuthUser authUser, required User user});
 }
