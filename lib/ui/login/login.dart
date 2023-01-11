@@ -97,7 +97,7 @@ class _LoginState extends State<Login> {
     if (res != null) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => Home()),
+        MaterialPageRoute(builder: (_) => const Home()),
       );
     } else {
       _error = 'Ha ocurriro un error';
